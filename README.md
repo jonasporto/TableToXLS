@@ -1,2 +1,2 @@
-TableToCSV
+TableToXLS
 ==========
