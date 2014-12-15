@@ -1,4 +1,15 @@
 
+/**
+* @jonasporto
+* Simple Convert Table To XLS
+* How To Use :
+* TableToXLS.export('.class');
+* TableToXLS.export('#id');
+* TableToXLS.export('table');
+* TableToXLS.export() - (default element table)
+*/
+
+
 var TableToXLS = {
     
         table : 'table',
@@ -32,14 +43,25 @@ var TableToXLS = {
         },
         
         sendToOpenOrDownload : function(data) {
-             window.location ='data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(data);
-             return true;
+            var link = document.createElement('a');
+        
+            link.setAttribute('download', this.filename);
+            link.setAttribute('href','data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(data));
+            link.setAttribute('target', '_blank');
+        
+            document.body.appendChild(link);
+        
+            link.click();
+        
+            document.body.removeChild(link);
         },
 
         export : function(table){
             if(table) this.table = table;
             return this.sendToOpenOrDownload(this.getDataInTable());
         },
+
+        filename : 'export.xls',
         
         result : ''
 };
